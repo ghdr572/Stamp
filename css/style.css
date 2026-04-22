@@ -1,0 +1,592 @@
+@import url('https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;500;700&display=swap');
+
+/*  1.  التنسيقات العامة*/
+:root {
+    --primary-color: #851C24;
+    --secondary-color: #003049;
+    --bg-light: #fffbed;
+    --font-display: 'Aref Ruqaa', serif;
+    --font-body: 'Tajawal', sans-serif;
+    --hover-color: #893d43;
+    --border-color: #e6dccf;
+    --shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    direction: rtl;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background: url("Background.png") no-repeat center center fixed;
+    background-size: cover;
+    line-height: 1.6;
+    color: var(--secondary-color);
+    padding-top: 80px; 
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4); 
+    z-index: -1;
+}
+
+/*  2. النصوص والعناوين  */
+.title, 
+h2, 
+.hero-title {
+    color: var(--primary-color);
+    font-family: var(--font-display);
+    text-align: center;
+}
+
+.title, 
+h2 {
+    font-size: clamp(30px, 5vw, 45px);
+    margin-bottom: 20px;
+}
+
+.description, 
+p, 
+.hero-description {
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/*  3. Navigation Bar  */
+nav {
+    position: fixed;
+    top: 0; 
+    width: 100%;
+    background: var(--bg-light);
+    padding: 8px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+nav .menu {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 30px;
+    font-family: var(--font-display);
+    font-weight: bold;
+}
+
+.menu ul {
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 17px;
+    padding: 6px 12px;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.menu ul li a:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* 4. Layout */
+main, 
+.container, 
+.box {
+    width: 90%;
+    max-width: 850px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+}
+
+.box { 
+    background: var(--bg-light); 
+    border: 1px solid #ddd; 
+    text-align: center; 
+}
+
+.box > div {
+    display: flex;
+    justify-content: center;
+    gap: 15px; 
+    flex-wrap: wrap;
+}
+
+.box .btn-simple {
+    margin: 0;
+}
+
+.line {
+    border-top: 1px solid #ddd;
+    margin-top: 60px;
+    padding-top: 60px;
+}
+
+
+/* 5. الصفحة الرئيسية  */
+.hero-section {
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    padding-bottom: 15vh;
+}
+
+.hero-title {
+    font-size: clamp(50px, 12vw, 130px);
+    margin-bottom: 5px;
+}
+
+.hero-subtitle {
+    color: #a1676c;
+    font-size: clamp(18px, 3vw, 26px);
+    font-family: var(--font-display);
+    margin-bottom: 15px;
+}
+
+.about-hero, 
+.about-footer-text {
+    padding: 40px 20px;
+    text-align: center; 
+    max-width: 800px; 
+    margin: auto;
+}
+
+
+.hero-description {
+    max-width: 650px; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    text-align: center;
+    line-height: 1.8; 
+}
+
+/*  6. الأزرار */
+.btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btns a, 
+.btn-primary, 
+.sub-btn, 
+.btn-secondary, 
+.btn-simple, 
+input[type="submit"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    height: 50px;
+    min-width: 200px;
+    padding: 0 25px;
+    border-radius: 5px;
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border: none;
+}
+
+.btn-primary, 
+.sub-btn, 
+input[type="submit"] { 
+    background: var(--primary-color); 
+    color: white; 
+}
+
+.btn-secondary { 
+    background: var(--secondary-color); 
+    color: white; 
+    border: 2px solid var(--secondary-color); 
+}
+
+.btn-simple {
+    min-width: auto;
+    height: auto;
+    padding: 10px 20px;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+    background: transparent;
+    margin: 10px 8px;
+}
+
+.btns a:hover, 
+.sub-btn:hover, 
+.btn-simple:hover, 
+input[type="submit"]:hover {
+    background: var(--hover-color);
+    border-color: var(--hover-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.btn-simple:hover { 
+    background: var(--secondary-color); 
+}
+
+/* 7. تواصل معنا (Forms) */
+.form-group {
+    margin-bottom: 25px;
+    text-align: right;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+input[type="text"], input[type="email"], input[type="tel"], 
+input[type="date"], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e0ddd0;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    transition: 0.3s;
+}
+input[type="reset"] {
+    background-color: #e5e0d5;
+    border: none;
+    padding: 0 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    color: var(--secondary-color);
+    height: 50px;
+    min-width: 200px; 
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s ease; 
+    margin-right: 15px; 
+}
+
+
+input[type="reset"]:hover {
+    transform: scale(1.05); 
+    background-color: #d1cbbd; 
+}
+
+
+.radio-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.radio-group label {
+    display: inline;
+    margin-right: 5px;
+    font-weight: normal;
+}
+
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 5px rgba(133, 28, 36, 0.1);
+}
+
+input:invalid:not(:placeholder-shown) {
+    border-color: #e74c3c;
+}
+
+input:valid:not(:placeholder-shown) {
+    border-color: #2ecc71;
+}
+
+input[type="date"]:not(:focus):invalid {
+    border-color: #e0ddd0;
+}
+
+input[type="date"]:focus:invalid {
+    border-color: #e74c3c;
+}
+
+
+
+/*  8. الجدول (Tables) */
+.table {
+    width: 95%; 
+    max-width: 600px;
+    margin: 20px auto 40px;
+    border-collapse: collapse;
+    background: var(--bg-light);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.table th, 
+.table td { 
+    padding: 15px; 
+    text-align: center; 
+    border-bottom: 1px solid #eee; 
+}
+
+.table th { 
+    background: #f8f1de; 
+    color: var(--primary-color); 
+    font-family: var(--font-display); 
+}
+
+/*  9. الكروت (Cards System)  */
+.cards-container, 
+.cards-wrapper, 
+.featured-cards, 
+.old-topics {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.card, 
+.sub-card, 
+.featured-card, 
+.old-topic-card {
+    background: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 30px;
+    width: 280px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.featured-card, 
+.sub-card.featured { 
+    border: 2px solid var(--primary-color); 
+    transform: scale(1.05); 
+}
+
+.featured-card { 
+    text-align: right; 
+    width: 300px; 
+    padding: 20px;
+}
+
+.old-topic-card { 
+    width: 220px; 
+    text-align: center; 
+    border-color: #ddd; 
+    padding: 20px;
+}
+
+.price { 
+    font-size: 28px; 
+    font-weight: bold; 
+    margin: 15px 0; 
+    color: var(--primary-color); 
+}
+
+.price span { 
+    font-size: 16px; 
+    font-weight: normal; 
+    color: var(--secondary-color); 
+}
+
+.tag { 
+    display: inline-block; 
+    background: #f3ecdf; 
+    padding: 5px 12px; 
+    border-radius: 20px; 
+    font-size: 14px; 
+    color: var(--primary-color); 
+    margin-bottom: 10px; 
+}
+
+.badge { 
+    display: inline-block; 
+    background: var(--primary-color); 
+    padding: 5px 15px; 
+    border-radius: 20px; 
+    font-size: 14px; 
+    color: white; 
+    margin-bottom: 15px; 
+}
+
+.author-name { 
+    margin-top: 10px; 
+    margin-bottom: 15px; 
+    color: #8a7d72; 
+    font-size: 15px; 
+}
+
+.sub-card ul { 
+    list-style: none; 
+    text-align: right; 
+    margin-bottom: 20px; 
+}
+
+.sub-card ul li::before { 
+    content: "• "; 
+    color: var(--primary-color); 
+    font-weight: bold; 
+}
+
+.card .icon {
+    width: 50px; 
+    height: 50px; 
+    margin: 0 auto 10px; 
+    background: #f1e9d1; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 22px; 
+    color: var(--primary-color);
+}
+
+/* إجبار الأزرار داخل كروت الاشتراك على التوسيط دائماً */
+.sub-card .sub-btn {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex; 
+    width: fit-content;
+}
+
+/* --- 10. إضافات أخرى وتذييل الصفحة (Footer) --- */
+.quote-box {
+    max-width: 800px;
+    margin: 60px auto;
+    background: var(--bg-light);
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px dashed var(--primary-color);
+    position: relative;
+    box-shadow: 10px 10px 0px rgba(133, 28, 36, 0.05); 
+}
+
+.quote-box::before {
+    content: "“";
+    position: absolute; 
+    top: -10px; 
+    right: 20px;
+    font-size: 80px; 
+    color: rgba(133, 28, 36, 0.1);
+}
+
+footer, 
+.footer-simple { 
+    text-align: center; 
+    padding: 30px; 
+    color: var(--secondary-color); 
+    font-size: 14px; 
+    margin-top: 40px; 
+}
+
+/* --- 11. استعلامات الشاشة (Media Queries) --- */
+@media (max-width: 992px) {
+    main, 
+    section, 
+    .container, 
+    .box { 
+        max-width: 90%; 
+    }
+}
+
+@media (max-width: 768px) {
+    .cards-container, 
+    .cards-wrapper, 
+    .featured-cards, 
+    .old-topics { 
+        flex-direction: column; 
+        align-items: center; 
+    }
+
+    .card, 
+    .sub-card, 
+    .featured-card, 
+    .old-topic-card { 
+        width: 100%; 
+        max-width: 450px; 
+    }
+
+    .featured-card, 
+    .old-topic-card { 
+        max-width: 320px; 
+    }
+
+    nav .menu { 
+        flex-direction: column; 
+        padding: 10px; 
+    }
+
+    .menu ul { 
+        margin-top: 10px; 
+        gap: 5px; 
+    }
+
+    .box { 
+        margin: 20px auto; 
+        padding: 30px 20px; 
+    }
+}
+
+@media (max-width: 576px) {
+    body { 
+        padding-top: 120px; 
+    }
+
+    .title { 
+        font-size: 28px; 
+    }
+
+    .btn-primary, 
+    .btn-secondary, 
+    input[type="submit"], 
+    .sub-btn { 
+        width: 100%; 
+    }
+
+    .menu ul { 
+        flex-wrap: wrap; 
+        justify-content: center; 
+    }
+}
