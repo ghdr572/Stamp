@@ -7,5 +7,5 @@ A digital art and letter subscription platform developed at the University of Je
 
 ## Tech Stack
 *   **Frontend:** HTML, CSS, JavaScript
-*   **Backend/Database:** (Insert backend technology/database used, e.g., Node.js, Firebase, MySQL)
+*   **Backend/Database:**Work in Progress...
 
