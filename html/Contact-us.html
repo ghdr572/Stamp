@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <title>تواصل معنا - طابع</title>
 </head>
 <body>
@@ -20,11 +20,17 @@
         </div>
     </nav>
 
+    <button id="sidebar-toggle" class="hamburger-btn" aria-label="فتح المعرض">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
     <main class="container">
         <h2 class="title">تواصل معنا</h2>
         <p class="description">يسعدنا تلقي استفساراتكم ومساهماتكم الإبداعية.</p>
 
-        <form action="#" method="POST">
+        <form id="contact-form" action="#" method="POST">
             <div class="form-group">
                 <label>نوع التواصل:</label>
                 <div class="radio-group">
@@ -34,6 +40,7 @@
                     <input type="radio" id="contribution" name="type" value="contribution">
                     <label for="contribution">مشاركة</label>
                 </div>
+                <div class="error-message" id="type-error" aria-live="polite"></div>
             </div>
 
             <div class="form-group">
@@ -41,8 +48,10 @@
                 <input type="text" id="fname" name="fname" 
                        required 
                        minlength="3" 
+                       maxlength="50"
                        pattern="[A-Za-zأ-ي\s]+" 
                        placeholder="ادخل اسمك الثلاثي">
+                <div class="error-message" id="fname-error" aria-live="polite"></div>
             </div>
 
             <div class="form-group">
@@ -54,6 +63,7 @@
                     <input type="radio" id="female" name="gender" value="female">
                     <label for="female">أنثى</label>
                 </div>
+                <div class="error-message" id="gender-error" aria-live="polite"></div>
             </div>
 
             <div class="form-group">
@@ -63,6 +73,7 @@
                        required 
                        pattern="05[0-9]{8}" 
                        maxlength="10">
+                <div class="error-message" id="mobile-error" aria-live="polite"></div>
             </div>
 
             <div class="form-group">
@@ -70,38 +81,72 @@
                 <input type="email" id="email" name="email" 
                        required 
                        placeholder="example@mail.com">
+                <div class="error-message" id="email-error" aria-live="polite"></div>
             </div>
 
             <div class="form-group">
                 <label for="dob">تاريخ الميلاد:</label>
                 <input type="date" id="dob" name="dob" required>
+                <div class="error-message" id="dob-error" aria-live="polite"></div>
             </div>
 
             <div class="form-group">
                 <label for="language">لغة التواصل المفضلة:</label>
-                <select id="language" name="language">
+                <select id="language" name="language" required>
+                    <option value="">اختر اللغة</option>
                     <option value="arabic">العربية</option>
                     <option value="english">الإنجليزية</option>
                     <option value="french">الفرنسية</option>
                 </select>
+                <div class="error-message" id="language-error" aria-live="polite"></div>
             </div>
 
             <div class="form-group">
                 <label for="message">رسالتك:</label>
-                <textarea id="message" name="message" rows="5" required minlength="10" placeholder="اكتب رسالتك هنا..."></textarea>
+                <textarea id="message" name="message" rows="5" required minlength="10" maxlength="500" placeholder="اكتب رسالتك هنا..."></textarea>
+                <div class="error-message" id="message-error" aria-live="polite"></div>
             </div>
 
             <div style="text-align: center;">
                 <input type="submit" value="إرسال" class="btn-primary">
                 <input type="reset" value="مسح">
             </div>
+            <div class="form-success" id="form-success" aria-live="polite"></div>
         </form>
     </main>
+
+    <aside id="portfolio-sidebar" class="portfolio-aside">
+        <h2>معرض الأعمال</h2>
+        <div class="portfolio-gallery">
+          <div class="portfolio-item">
+            <img src="../media/mail1.jpg" alt="بريد شهر يناير" />
+            <p class="caption">بريد شهر يناير</p>
+          </div>
+          <div class="portfolio-item">
+            <img src="../media/mail2.jpg" alt="بريد شهر فبراير" />
+            <p class="caption">بريد شهر فبراير</p>
+          </div>
+          <div class="portfolio-item">
+            <img src="../media/mail3.jpg" alt="بريد شهر مارس" />
+            <p class="caption">بريد شهر مارس</p>
+          </div>
+          <div class="portfolio-item">
+            <img src="../media/mail4.jpg" alt="بريد شهر أبريل" />
+            <p class="caption">بريد شهر أبريل</p>
+          </div>
+          <div class="portfolio-item">
+            <img src="../media/mail5.jpg" alt="بريد شهر مايو" />
+            <p class="caption">بريد شهر مايو</p>
+          </div>
+        </div>
+    </aside>
 
     <footer class="footer-simple">
         <h3 class="card-title">طَابع</h3>
         <p>فن الرسائل والأدب والفنون البصرية بالعربية </p>
         <p>© 2026 جميع الحقوق محفوظة. فريق طابع جامعة جدة</p>
+        <p>الصور المستخدمة هي لأغراض توضيحية فقط وتم الحصول عليها من Pinterest.</p>
     </footer>
+    <script src="../js/script.js"></script>
 </body>
 </html>

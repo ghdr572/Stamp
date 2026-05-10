@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>طَابع | الرئيسية</title>
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
@@ -23,6 +23,12 @@
     </div>
   </nav>
 
+  <button id="sidebar-toggle" class="hamburger-btn" aria-label="فتح المعرض">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
   <section class="hero-section">
     <h1 class="hero-title">طَابع</h1>
     <p class="hero-subtitle">منصة رقمية لفن كتابة الرسائل والأدب والفنون البصرية</p>
@@ -36,11 +42,40 @@
     </div>
   </section>
 
+  <aside id="portfolio-sidebar" class="portfolio-aside">
+    <h2>معرض الأعمال</h2>
+    <div class="portfolio-gallery">
+      <div class="portfolio-item">
+        <img src="../media/mail1.jpg" alt="بريد شهر يناير" />
+        <p class="caption">بريد شهر يناير</p>
+      </div>
+      <div class="portfolio-item">
+        <img src="../media/mail2.jpg" alt="بريد شهر فبراير" />
+        <p class="caption">بريد شهر فبراير</p>
+      </div>
+      <div class="portfolio-item">
+        <img src="../media/mail3.jpg" alt="بريد شهر مارس" />
+        <p class="caption">بريد شهر مارس</p>
+      </div>
+      <div class="portfolio-item">
+        <img src="../media/mail4.jpg" alt="بريد شهر أبريل" />
+        <p class="caption">بريد شهر أبريل</p>
+      </div>
+      <div class="portfolio-item">
+        <img src="../media/mail5.jpg" alt="بريد شهر مايو" />
+        <p class="caption">بريد شهر مايو</p>
+      </div>
+    </div>
+  </aside>
+
    <footer class="footer-simple">
         <h3 class="card-title">طَابع</h3>
         <p>فن الرسائل والأدب والفنون البصرية بالعربية </p>
         <p>© 2026 جميع الحقوق محفوظة. فريق طابع جامعة جدة</p>
+        <p>الصور المستخدمة هي لأغراض توضيحية فقط وتم الحصول عليها من Pinterest.</p>
     </footer>
+
+    <script src="../js/script.js"></script>
 
 </body>
 </html>
