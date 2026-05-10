@@ -9,3 +9,4 @@ A digital art and letter subscription platform developed at the University of Je
 *   **Frontend:** HTML, CSS, JavaScript
 *   **Backend/Database:** Work in Progress...
 
+Images used are for demonstration purposes only and were sourced from Pinterest
