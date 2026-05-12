@@ -292,10 +292,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (contributionForm) {
         contributionForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+            event.preventDefault(); // This stops the "raw JSON" screen from appearing
             
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
+            // Using the unique ID we discussed to ensure data is captured
             const message = document.getElementById('contrib-message').value.trim();
 
             if (name.length < 3 || !email.includes('@') || message.length < 10) {
@@ -310,20 +311,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: message
             };
 
-         fetch("/process-participation", { 
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(formData)
-})
+            // FIXED: Properly chained fetch to handle the response
+            fetch("/process-participation", { 
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            })
             .then(res => res.json())
             .then(result => {
-                alert(result.status ? result.message : "خطأ: " + result.errors.join(" | "));
+                // This will now show as a nice popup instead of a new page
                 if (result.status) {
+                    alert(result.message);
                     contributionForm.reset();
-                    loadContributions(); // Refresh display instantly after save
+                    loadContributions(); // Updates the UI with your new entry!
+                } else {
+                    alert("خطأ: " + result.errors.join(" | "));
                 }
+            })
+            .catch(err => {
+                console.error("Fetch error:", err);
+                alert("فشل الاتصال بالخادم.");
             });
         });
-        loadContributions(); // Load existing data on page load
+        loadContributions(); 
     }
 });
