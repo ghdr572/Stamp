@@ -87,6 +87,12 @@ nav .menu {
     padding: 0 20px;
 }
 
+.menu .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .logo a {
     text-decoration: none;
     color: var(--primary-color);
@@ -113,6 +119,46 @@ nav .menu {
 .menu ul li a:hover {
     background: var(--primary-color);
     color: white;
+}
+
+/* Mobile Navigation Button */
+.mobile-menu-toggle {
+    display: none;
+    background: var(--primary-color);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    transition: background 0.3s;
+}
+
+.mobile-menu-toggle:hover {
+    background: var(--hover-color);
+}
+
+.mobile-menu-toggle span {
+    width: 20px;
+    height: 2px;
+    background: white;
+    transition: 0.3s;
+    transform-origin: center;
+}
+
+.mobile-menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
 }
 
 /* 4. Layout */
@@ -642,6 +688,22 @@ footer,
 }
 
 /* --- 11. استعلامات الشاشة (Media Queries) --- */
+@media (max-width: 1200px) {
+    nav .menu {
+        max-width: 100%;
+        padding: 0 15px;
+    }
+
+    .logo a {
+        font-size: 28px;
+    }
+
+    .menu ul li a {
+        font-size: 16px;
+        padding: 5px 10px;
+    }
+}
+
 @media (max-width: 992px) {
     main, 
     section, 
@@ -651,35 +713,57 @@ footer,
     }
 
     .portfolio-aside {
-        position: static;
-        right: auto;
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        right: 0;
         top: auto;
-        height: auto;
-        width: 90%;
-        max-width: 800px;
-        margin: 40px auto;
-        border-radius: 15px;
+        width: 100%;
+        height: 60vh;
+        max-height: 400px;
+        border-radius: 15px 15px 0 0;
+        transition: bottom 0.3s ease;
+        z-index: 1000;
+    }
+
+    .portfolio-aside.open {
+        bottom: 0;
     }
 
     .portfolio-gallery {
-        height: auto;
+        height: calc(60vh - 80px);
+        max-height: 320px;
         flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: center;
         gap: 15px;
+        overflow-y: auto;
     }
 
     .portfolio-item {
-        width: 200px;
+        width: 140px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
     .caption {
         opacity: 1;
         transform: none;
+        font-size: 12px;
     }
 
     .hamburger-btn {
-        display: none; /* Hide hamburger on smaller screens */
+        display: none; /* Hide portfolio button on tablet/small screens - accessible via menu */
+    }
+
+    .card,
+    .sub-card {
+        width: 300px;
+        padding: 25px;
     }
 }
 
@@ -713,11 +797,39 @@ footer,
     .menu ul { 
         margin-top: 10px; 
         gap: 5px; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg-light);
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        display: none;
+        border-radius: 0 0 15px 15px;
+    }
+
+    .menu ul.show {
+        display: flex;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+        margin-top: 10px;
     }
 
     .box { 
         margin: 20px auto; 
         padding: 30px 20px; 
+    }
+
+    .hero-section {
+        padding: 0 15px;
+        padding-bottom: 10vh;
+    }
+
+    .hero-description {
+        font-size: 16px;
     }
 }
 
@@ -735,10 +847,54 @@ footer,
     input[type="submit"], 
     .sub-btn { 
         width: 100%; 
+        min-width: auto;
+        margin-bottom: 10px;
     }
 
     .menu ul { 
         flex-wrap: wrap; 
         justify-content: center; 
+    }
+
+    .hero-title {
+        font-size: clamp(40px, 15vw, 80px);
+    }
+
+    .hero-subtitle {
+        font-size: clamp(16px, 5vw, 22px);
+    }
+
+    .hero-description {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    .radio-group {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .table {
+        width: 100%;
+        font-size: 14px;
+    }
+
+    .table th,
+    .table td {
+        padding: 10px 5px;
+    }
+
+    .quote-box {
+        padding: 30px 20px;
+        margin: 40px 10px;
+    }
+
+    .hamburger-btn {
+        display: none; /* Hide portfolio button on very small screens to reduce clutter */
     }
 }

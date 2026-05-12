@@ -7,10 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Serve static assets from your project folders
-app.use(express.static("html"));
-app.use("/css", express.static("css"));
-app.use("/js", express.static("js"));
-app.use("/media", express.static("media"));
+app.use( express.static("website"));
 
 // Define backend validation rules to replicate frontend logic
 const contactValidation = [

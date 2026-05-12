@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الموضوع الشهري | طَابع</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -13,15 +13,23 @@
             <div class="logo">
                 <a href="index.html">طَابع</a>
             </div>
+            <div class="nav-right">
+                <button class="mobile-menu-toggle" aria-label="فتح القائمة">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
 
-            <ul>
-                <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="monthly.html">الموضوع الشهري</a></li>
-                <li><a href="Subscription.html">الاشتراك</a></li>
-                <li><a href="about.html">من نحن</a></li>
-                <li><a href="Contact-us.html">تواصل معنا</a></li>
-            </ul>
-        </div> 
+                <ul>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="monthly.html">الموضوع الشهري</a></li>
+                    <li><a href="Subscription.html">الاشتراك</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="#portfolio-sidebar" onclick="document.getElementById('sidebar-toggle').click()">معرض الأعمال</a></li>
+                    <li><a href="Contact-us.html">تواصل معنا</a></li>
+                </ul>
+            </div>
+        </div>
     </nav>
 
     <button id="sidebar-toggle" class="hamburger-btn" aria-label="فتح المعرض">
@@ -133,23 +141,23 @@
         <h2>معرض الأعمال</h2>
         <div class="portfolio-gallery">
           <div class="portfolio-item">
-            <img src="../media/mail1.jpg" alt="بريد شهر يناير" />
+            <img src="media/mail1.jpg" alt="بريد شهر يناير" />
             <p class="caption">بريد شهر يناير</p>
           </div>
           <div class="portfolio-item">
-            <img src="../media/mail2.jpg" alt="بريد شهر فبراير" />
+            <img src="media/mail2.jpg" alt="بريد شهر فبراير" />
             <p class="caption">بريد شهر فبراير</p>
           </div>
           <div class="portfolio-item">
-            <img src="../media/mail3.jpg" alt="بريد شهر مارس" />
+            <img src="media/mail3.jpg" alt="بريد شهر مارس" />
             <p class="caption">بريد شهر مارس</p>
           </div>
           <div class="portfolio-item">
-            <img src="../media/mail4.jpg" alt="بريد شهر أبريل" />
+            <img src="media/mail4.jpg" alt="بريد شهر أبريل" />
             <p class="caption">بريد شهر أبريل</p>
           </div>
           <div class="portfolio-item">
-            <img src="../media/mail5.jpg" alt="بريد شهر مايو" />
+            <img src="media/mail5.jpg" alt="بريد شهر مايو" />
             <p class="caption">بريد شهر مايو</p>
           </div>
         </div>
@@ -162,7 +170,7 @@
         <p>الصور المستخدمة هي لأغراض توضيحية فقط وتم الحصول عليها من Pinterest.</p>
     </footer>
 
-    <script src="../js/script.js"></script>
+    <script src="js/script.js"></script>
 
 </body>
 </html>
