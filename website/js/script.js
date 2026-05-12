@@ -171,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize on page load
     initializeSidebarPosition();
 
+    // --- FORM 1: CONTACT FORM LOGIC ---
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         const fields = {
@@ -198,24 +199,15 @@ document.addEventListener('DOMContentLoaded', function() {
         function showError(fieldName, message) {
             const errorEl = document.getElementById(errorIds[fieldName]);
             const input = fields[fieldName];
-            if (errorEl) {
-                errorEl.textContent = message;
-            }
-            if (input) {
-                if (input instanceof NodeList || input instanceof HTMLCollection) return;
-                input.classList.add('invalid');
-            }
+            if (errorEl) errorEl.textContent = message;
+            if (input && !(input instanceof NodeList)) input.classList.add('invalid');
         }
 
         function clearError(fieldName) {
             const errorEl = document.getElementById(errorIds[fieldName]);
             const input = fields[fieldName];
-            if (errorEl) {
-                errorEl.textContent = '';
-            }
-            if (input && !(input instanceof NodeList || input instanceof HTMLCollection)) {
-                input.classList.remove('invalid');
-            }
+            if (errorEl) errorEl.textContent = '';
+            if (input && !(input instanceof NodeList)) input.classList.remove('invalid');
         }
 
         function validateContactForm() {
@@ -229,84 +221,29 @@ document.addEventListener('DOMContentLoaded', function() {
             const languageValue = fields.language.value;
             const messageValue = fields.message.value.trim();
 
-            if (!typeValue) {
-                errors.type = 'اختر نوع التواصل أولاً.';
-            }
-
-            if (!nameValue) {
-                errors.fname = 'الاسم الكامل مطلوب.';
-            } else if (nameValue.length < 3) {
-                errors.fname = 'الاسم يجب أن يحتوي على 3 أحرف على الأقل.';
-            } else if (nameValue.length > 50) {
-                errors.fname = 'الاسم لا يمكن أن يتجاوز 50 حرفاً.';
-            } else if (!/^[A-Za-zأ-ي\s]+$/.test(nameValue)) {
-                errors.fname = 'استخدم حروفاً عربية أو إنجليزية فقط.';
-            }
-
-            if (!genderValue) {
-                errors.gender = 'اختر الجنس.';
-            }
-
-            if (!mobileValue) {
-                errors.mobile = 'رقم الجوال مطلوب.';
-            } else if (!/^05[0-9]{8}$/.test(mobileValue)) {
-                errors.mobile = 'اكتب رقم جوال صحيح من 10 أرقام يبدأ بـ 05.';
-            }
-
-            if (!emailValue) {
-                errors.email = 'البريد الإلكتروني مطلوب.';
-            } else {
-                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailPattern.test(emailValue)) {
-                    errors.email = 'اكتب بريداً إلكترونياً صالحاً.';
-                }
-            }
-
-            if (!dobValue) {
-                errors.dob = 'اختر تاريخ الميلاد.';
-            } else {
-                const selectedDate = new Date(dobValue);
-                const today = new Date();
-                if (selectedDate > today) {
-                    errors.dob = 'لا يمكن أن يكون تاريخ الميلاد في المستقبل.';
-                }
-            }
-
-            if (!languageValue) {
-                errors.language = 'اختر لغة التواصل المفضلة.';
-            }
-
-            if (!messageValue) {
-                errors.message = 'اكتب نص الرسالة.';
-            } else if (messageValue.length < 10) {
-                errors.message = 'الرسالة يجب أن تحتوي على 10 أحرف على الأقل.';
-            } else if (messageValue.length > 2500) {
-                errors.message = 'الرسالة يجب ألا تتجاوز 2500 حرف.';
-            }
+            if (!typeValue) errors.type = 'اختر نوع التواصل أولاً.';
+            if (!nameValue || nameValue.length < 3) errors.fname = 'الاسم يجب أن يحتوي على 3 أحرف على الأقل.';
+            if (!genderValue) errors.gender = 'اختر الجنس.';
+            if (!mobileValue || !/^05[0-9]{8}$/.test(mobileValue)) errors.mobile = 'رقم جوال غير صحيح.';
+            if (!emailValue || !emailValue.includes('@')) errors.email = 'اكتب بريداً إلكترونياً صالحاً.';
+            if (!dobValue) errors.dob = 'اختر تاريخ الميلاد.';
+            if (!languageValue) errors.language = 'اختر لغة التواصل.';
+            if (!messageValue || messageValue.length < 10) errors.message = 'الرسالة يجب أن تحتوي على 10 أحرف.';
 
             return errors;
         }
 
-      contactForm.addEventListener('submit', function(event) {
-            event.preventDefault(); // Stop page from refreshing
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault();
             const formSuccess = document.getElementById('form-success');
             const errors = validateContactForm();
-
             Object.keys(errorIds).forEach(key => clearError(key));
-            if (formSuccess) formSuccess.textContent = '';
 
-            // Check frontend validation first
             if (Object.keys(errors).length > 0) {
                 Object.entries(errors).forEach(([field, message]) => showError(field, message));
-                const firstErrorField = Object.keys(errors)[0];
-                const firstInput = fields[firstErrorField];
-                if (firstInput && !(firstInput instanceof NodeList || firstInput instanceof HTMLCollection)) {
-                    firstInput.focus();
-                }
                 return;
             }
 
-            // Prepare data for the backend in JSON format
             const formData = {
                 type: document.querySelector('input[name="type"]:checked')?.value,
                 fname: fields.fname.value,
@@ -318,43 +255,75 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: fields.message.value
             };
 
-            // Send AJAX request using JSON Routing
             fetch("/process-contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)
             })
-            .then(response => response.json()) // Parse server response
+            .then(res => res.json())
             .then(result => {
-                if (result.status) {
-                    // Success: Show server-side message
-                    formSuccess.style.color = "green";
-                    formSuccess.textContent = result.message; 
-                    contactForm.reset();
-                } else {
-                    // Fail: Show backend validation errors
-                    formSuccess.style.color = "red";
-                    formSuccess.textContent = "Error: " + result.errors.join(" | "); 
-                }
+                formSuccess.style.color = result.status ? "green" : "red";
+                formSuccess.textContent = result.message || ("Error: " + result.errors.join(" | "));
+                if (result.status) contactForm.reset();
             })
-            .catch(error => {
-                console.error("Error:", error);
-                formSuccess.style.color = "red";
-                formSuccess.textContent = "Connection to server failed.";
-            });
-        });
-
-        ['input', 'change'].forEach(evt => {
-            contactForm.querySelectorAll('input, select, textarea').forEach(element => {
-                element.addEventListener(evt, () => {
-                    if (element.id) {
-                        clearError(element.id);
-                    }
-                });
-            });
+            .catch(() => { formSuccess.style.color = "red"; formSuccess.textContent = "فشل الاتصال بالخادم."; });
         });
     }
 
+    // --- FORM 2: PARTICIPATION FORM & RETRIEVAL LOGIC ---
+    const contributionForm = document.getElementById('contributionForm');
+    
+    function loadContributions() {
+        const displayArea = document.querySelector('.featured-cards');
+        if (!displayArea) return;
 
+        fetch("/get-contributions")
+            .then(res => res.json())
+            .then(data => {
+                displayArea.innerHTML = data.map(item => `
+                    <div class="featured-card">
+                        <span class="tag">${item.type}</span>
+                        <p class="author-name">${item.name}</p>
+                        <p class="description">${item.message}</p>
+                    </div>
+                `).join('');
+            });
+    }
 
+    if (contributionForm) {
+        contributionForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('contrib-message').value.trim();
+
+            if (name.length < 3 || !email.includes('@') || message.length < 10) {
+                alert("يرجى التأكد من ملء الحقول بشكل صحيح.");
+                return;
+            }
+
+            const formData = {
+                name: name,
+                email: email,
+                type: document.getElementById('type').value,
+                message: message
+            };
+
+         fetch("/process-participation", { 
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(formData)
+})
+            .then(res => res.json())
+            .then(result => {
+                alert(result.status ? result.message : "خطأ: " + result.errors.join(" | "));
+                if (result.status) {
+                    contributionForm.reset();
+                    loadContributions(); // Refresh display instantly after save
+                }
+            });
+        });
+        loadContributions(); // Load existing data on page load
+    }
 });
