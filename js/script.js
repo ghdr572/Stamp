@@ -193,20 +193,17 @@ document.addEventListener('DOMContentLoaded', function() {
             return errors;
         }
 
-        contactForm.addEventListener('submit', function(event) {
-            event.preventDefault();
+      contactForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Stop page from refreshing
             const formSuccess = document.getElementById('form-success');
             const errors = validateContactForm();
 
             Object.keys(errorIds).forEach(key => clearError(key));
-            if (formSuccess) {
-                formSuccess.textContent = '';
-            }
+            if (formSuccess) formSuccess.textContent = '';
 
+            // Check frontend validation first
             if (Object.keys(errors).length > 0) {
-                Object.entries(errors).forEach(([field, message]) => {
-                    showError(field, message);
-                });
+                Object.entries(errors).forEach(([field, message]) => showError(field, message));
                 const firstErrorField = Object.keys(errors)[0];
                 const firstInput = fields[firstErrorField];
                 if (firstInput && !(firstInput instanceof NodeList || firstInput instanceof HTMLCollection)) {
@@ -215,10 +212,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            if (formSuccess) {
-                formSuccess.textContent = 'تم إرسال النموذج بنجاح. شكراً لتواصلك معنا.';
-            }
-            contactForm.reset();
+            // Prepare data for the backend in JSON format
+            const formData = {
+                type: document.querySelector('input[name="type"]:checked')?.value,
+                fname: fields.fname.value,
+                gender: document.querySelector('input[name="gender"]:checked')?.value,
+                mobile: fields.mobile.value,
+                email: fields.email.value,
+                dob: fields.dob.value,
+                language: fields.language.value,
+                message: fields.message.value
+            };
+
+            // Send AJAX request using JSON Routing
+            fetch("/process-contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json()) // Parse server response
+            .then(result => {
+                if (result.status) {
+                    // Success: Show server-side message
+                    formSuccess.style.color = "green";
+                    formSuccess.textContent = result.message; 
+                    contactForm.reset();
+                } else {
+                    // Fail: Show backend validation errors
+                    formSuccess.style.color = "red";
+                    formSuccess.textContent = "Error: " + result.errors.join(" | "); 
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                formSuccess.style.color = "red";
+                formSuccess.textContent = "Connection to server failed.";
+            });
         });
 
         ['input', 'change'].forEach(evt => {
@@ -231,5 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+
 
 });

@@ -1,0 +1,26 @@
+{
+  "name": "stamp",
+  "version": "1.0.0",
+  "description": "A digital art and letter subscription platform developed at the University of Jeddah (2026). Stamp provides a dedicated space for managing users, handling content submissions, and organizing digital correspondence.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghdr572/Stamp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ghdr572/Stamp/issues"
+  },
+  "homepage": "https://github.com/ghdr572/Stamp#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "mysql2": "^3.22.3"
+  }
+}
