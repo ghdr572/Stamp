@@ -7,6 +7,40 @@ document.addEventListener('DOMContentLoaded', function() {
     let offset = 0;
     const speed = 0.75;
 
+    // Mobile menu functionality
+    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+    const navMenu = document.querySelector('.menu ul');
+
+    if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener('click', function() {
+            const isMenuOpen = navMenu.classList.contains('show');
+            
+            if (isMenuOpen) {
+                navMenu.classList.remove('show');
+                mobileMenuToggle.classList.remove('active');
+            } else {
+                navMenu.classList.add('show');
+                mobileMenuToggle.classList.add('active');
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!mobileMenuToggle.contains(event.target) && !navMenu.contains(event.target)) {
+                navMenu.classList.remove('show');
+                mobileMenuToggle.classList.remove('active');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        navMenu.addEventListener('click', function(event) {
+            if (event.target.tagName === 'A') {
+                navMenu.classList.remove('show');
+                mobileMenuToggle.classList.remove('active');
+            }
+        });
+    }
+
     // Build infinite track
     const originalItems = Array.from(gallery.querySelectorAll('.portfolio-item'));
     const inner = document.createElement('div');
@@ -26,13 +60,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     toggleBtn.addEventListener('click', function() {
         isOpen = !isOpen;
+
+        // Check if we're on mobile/tablet (≤992px)
+        const isMobile = window.innerWidth <= 992;
+
         if (isOpen) {
-            sidebar.style.right = '0';
-            toggleBtn.style.right = '270px';
+            if (isMobile) {
+                sidebar.classList.add('open');
+                toggleBtn.style.bottom = '420px'; // Position above the opened sidebar
+                toggleBtn.style.right = '20px';
+            } else {
+                sidebar.style.right = '0';
+                toggleBtn.style.right = '270px';
+            }
             startAutoScroll();
         } else {
-            sidebar.style.right = '-250px';
-            toggleBtn.style.right = '20px';
+            if (isMobile) {
+                sidebar.classList.remove('open');
+                toggleBtn.style.bottom = '20px';
+                toggleBtn.style.right = '20px';
+            } else {
+                sidebar.style.right = '-250px';
+                toggleBtn.style.right = '20px';
+            }
             stopAutoScroll();
         }
     });
@@ -72,10 +122,54 @@ document.addEventListener('DOMContentLoaded', function() {
         animationFrame = null;
     }
 
-    const startDelay = 200;
-    setTimeout(() => {
-        if (isOpen) startAutoScroll();
-    }, startDelay);
+    // Handle window resize to update sidebar positioning
+    window.addEventListener('resize', function() {
+        const isMobile = window.innerWidth <= 992;
+
+        if (isOpen) {
+            if (isMobile) {
+                sidebar.style.right = 'auto';
+                sidebar.classList.add('open');
+                toggleBtn.style.right = 'auto';
+                toggleBtn.style.bottom = '420px';
+            } else {
+                sidebar.classList.remove('open');
+                sidebar.style.right = '0';
+                toggleBtn.style.bottom = 'auto';
+                toggleBtn.style.right = '270px';
+            }
+        } else {
+            if (isMobile) {
+                sidebar.classList.remove('open');
+                toggleBtn.style.bottom = '20px';
+                toggleBtn.style.right = '20px';
+            } else {
+                sidebar.style.right = '-250px';
+                toggleBtn.style.right = '20px';
+                toggleBtn.style.bottom = 'auto';
+            }
+        }
+    });
+
+    // Initialize sidebar positioning based on screen size
+    function initializeSidebarPosition() {
+        const isMobile = window.innerWidth <= 992;
+
+        if (isMobile) {
+            sidebar.style.right = 'auto';
+            sidebar.classList.remove('open');
+            toggleBtn.style.right = '20px';
+            toggleBtn.style.bottom = '20px';
+        } else {
+            sidebar.style.right = '-250px';
+            sidebar.classList.remove('open');
+            toggleBtn.style.right = '20px';
+            toggleBtn.style.bottom = 'auto';
+        }
+    }
+
+    // Initialize on page load
+    initializeSidebarPosition();
 
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
